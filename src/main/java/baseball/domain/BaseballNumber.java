@@ -1,5 +1,7 @@
 package baseball.domain;
 
+import java.util.Objects;
+
 public class BaseballNumber {
 
     private static final int MINIMUM_NUMBER = 1;
@@ -34,5 +36,22 @@ public class BaseballNumber {
 
     public int position() {
         return position;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        BaseballNumber that = (BaseballNumber) o;
+        return position == that.position && number == that.number;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(position, number);
     }
 }
