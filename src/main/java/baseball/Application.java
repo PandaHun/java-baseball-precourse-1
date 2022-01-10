@@ -1,7 +1,16 @@
 package baseball;
 
+import baseball.util.OutputView;
+
 public class Application {
+
     public static void main(String[] args) {
-        // TODO 숫자 야구 게임 구현
+        GameMachine gameMachine = new GameMachine();
+        boolean runningFlag = true;
+        while (runningFlag) {
+            gameMachine.play();
+            runningFlag = !gameMachine.isGameEnd();
+        }
+        OutputView.gameEnd();
     }
 }
