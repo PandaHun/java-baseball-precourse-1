@@ -24,6 +24,8 @@ public class GameMachine {
     private static final Pattern AGAIN_OR_END_PATTERN = Pattern.compile(AGAIN_OR_END_REGEX);
     private static final boolean GAME_END = true;
     private static final boolean GAME_NOT_END = false;
+    private static final String AGAIN_OR_END_EXCEPTION_MESSAGE = "[ERROR] 게임 종료시 1, 2 메뉴를 입력해 주세요";
+
     private static boolean isGameEnd;
     private static BaseballNumbers computerNumbers;
 
@@ -46,7 +48,13 @@ public class GameMachine {
         setUp();
         while (!isGameEnd) {
             String numbers = InputView.getNumbers();
-            BaseballNumbers playerNumbers = new BaseballNumbers(parseNumbers(numbers));
+            BaseballNumbers playerNumbers;
+            try {
+                playerNumbers = new BaseballNumbers(parseNumbers(numbers));
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+                continue;
+            }
             judgePlayer(playerNumbers);
         }
         needsAgain();
@@ -87,7 +95,8 @@ public class GameMachine {
         try {
             validateRequest(request);
         } catch (IllegalArgumentException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
+            needsAgain();
         }
         if (AGAIN.equals(request)) {
             isGameEnd = GAME_NOT_END;
@@ -97,7 +106,7 @@ public class GameMachine {
     private void validateRequest(String request) {
         Matcher matcher = AGAIN_OR_END_PATTERN.matcher(request);
         if (!matcher.find()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(AGAIN_OR_END_EXCEPTION_MESSAGE);
         }
     }
 }

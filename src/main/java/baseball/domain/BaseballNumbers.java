@@ -11,7 +11,7 @@ public class BaseballNumbers {
     private static final int START_INCLUSIVE_IDX = 1;
     private static final int END_EXCLUSIVE_IDX = 4;
     private static final int NEEDS_SIZE = 3;
-    private static final String SIZE_EXCEPTION_MESSAGE = "[ERROR] 숫자는 3개만 입력 가능합니다.";
+    private static final String SIZE_EXCEPTION_MESSAGE = "[ERROR] 숫자는 서로 다른 3개를 입력 해주세요.";
 
     private final List<BaseballNumber> baseballNumbers;
 
