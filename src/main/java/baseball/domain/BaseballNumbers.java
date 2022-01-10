@@ -13,13 +13,13 @@ public class BaseballNumbers {
     private static final int NEEDS_SIZE = 3;
     private static final String SIZE_EXCEPTION_MESSAGE = "[ERROR] 숫자는 3개만 입력 가능합니다.";
 
-    private final Set<BaseballNumber> baseballNumbers;
+    private final List<BaseballNumber> baseballNumbers;
 
     public BaseballNumbers(List<Integer> numbers) {
         validateNumbers(numbers);
         baseballNumbers = IntStream.range(START_INCLUSIVE_IDX, END_EXCLUSIVE_IDX)
             .mapToObj(i -> new BaseballNumber(i, numbers.get(i - 1)))
-            .collect(Collectors.toSet());
+            .collect(Collectors.toList());
     }
 
     private void validateNumbers(List<Integer> numbers) {
@@ -31,5 +31,17 @@ public class BaseballNumbers {
 
     public int size() {
         return baseballNumbers.size();
+    }
+
+    public BaseballNumber value(int i) {
+        return baseballNumbers.get(i);
+    }
+
+    @Override
+    public String toString() {
+        return "BaseballNumbers{" +
+            baseballNumbers.stream().map(BaseballNumber::number).map(String::valueOf)
+                .collect(Collectors.joining("")) +
+            '}';
     }
 }
